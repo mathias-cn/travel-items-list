@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    min-width: 0;
+}
+input[type="checkbox"] {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    appearance: none; /* Remove o estilo padrão */
+    border: 2px solid rgb(254 215 170);
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(254 215 170); /* Cor do fundo do checkbox */
+}
+  
+  /* Estilo para o checkbox quando está marcado */
+  input[type="checkbox"]:checked {
+    background-color: rgb(134 239 172); /* Cor do fundo quando marcado */
+    border-color: rgb(134 239 172); /* Cor da borda quando marcado */
+  }
+  
+  /* Adicionar um pseudo-elemento para o "check" visual */
+  input[type="checkbox"]:checked::after {
+    content: '✔'; /* Caractere de check */
+    color: #fff; /* Cor do check */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+  }
