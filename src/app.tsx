@@ -20,8 +20,8 @@ export function App() {
     event.preventDefault()
   
     const data = new FormData(event.currentTarget)
-    const name = data.get('item')?.toString()
-    const qty = data.get('quantity')?.toString()
+    const name = data.get('item')?.toString() ?? ""
+    const qty = data.get('quantity')?.toString() ?? ""
 
     if(!data.get('item')) {
       return
@@ -41,15 +41,16 @@ export function App() {
     event.currentTarget.reset()
   }
   function removeItemFromList(event: MouseEvent<HTMLButtonElement>) {
-    const targetEl = event.target
-    const targetName = targetEl.parentElement.dataset.name
+    const targetEl = event.target as HTMLButtonElement
+    const targetElement = targetEl.parentElement as HTMLElement
+    const targetName = targetElement.dataset.name
     const newItemList = items.filter(i => i.name !== targetName)
 
     setItems(newItemList)
   }
   function changePackedStatus(event: React.ChangeEvent<HTMLInputElement>) {
     const checkbox = event.target;
-    const targetName = checkbox.parentElement.dataset.name;
+    const targetName = checkbox.dataset.name;
   
     if (!targetName) {
       return;

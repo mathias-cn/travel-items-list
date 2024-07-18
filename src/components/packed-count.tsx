@@ -19,8 +19,12 @@ export function PackedCount({ items }: PackedCountProps) {
                 <p className="text-2xl font-semibold">🚀 Start adding some items to your packing list</p>
             )}
 
-            {totalItens > 0 && (
+            {totalItens > 0 && totalItens !== itemsPacked && (
                 <p className="text-2xl font-semibold">💼 You have {totalItens} item(s) on your list, and you already packed {itemsPacked} ({percentagePacked}%)</p>
+            )}
+
+            {totalItens > 0 && totalItens === itemsPacked && (
+                <p className="text-2xl font-semibold">🚀 Everything packed and ready to go!</p>
             )}
         </div>
     )
