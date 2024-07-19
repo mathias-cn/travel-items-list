@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
 import { Form } from "./components/form";
 import { Logo } from "./components/logo";
 import { PackedCount } from "./components/packed-count";
@@ -14,6 +14,7 @@ interface Item {
 
 export function App() {
   const [items, setItems] = useState<Item[]>([])
+  const [orderItems, setOrderItems] = useState("default")
   const [isConfirmClearModalOpen, setIsConfirmClearModalOpen] = useState(false)
 
   function addItemToList(event: FormEvent<HTMLFormElement>) {
@@ -69,6 +70,12 @@ export function App() {
     setItems([])
   }
 
+  function changeOrderList(event: ChangeEvent<HTMLSelectElement>) {
+    const targetValue = event.currentTarget.value
+
+    setOrderItems(targetValue)
+  }
+
   function openConfirmClearModal() {
     setIsConfirmClearModalOpen(true)
   }
@@ -87,7 +94,14 @@ export function App() {
       )}
       <Logo />
       <Form addItemToList={addItemToList} />
-      <PackingList items={items} removeItemFromList={removeItemFromList} changePackedStatus={changePackedStatus} openConfirmClearModal={openConfirmClearModal} />
+      <PackingList 
+        items={items}
+        removeItemFromList={removeItemFromList} 
+        changePackedStatus={changePackedStatus} 
+        openConfirmClearModal={openConfirmClearModal} 
+        changeOrderList={changeOrderList}
+        orderItems={orderItems}
+      />
       <PackedCount items={items} />
     </div>
   )

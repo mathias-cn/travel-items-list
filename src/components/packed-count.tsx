@@ -14,17 +14,17 @@ export function PackedCount({ items }: PackedCountProps) {
     const percentagePacked = ((itemsPacked / totalItens) * 100).toFixed(0)
 
     return (
-        <div className="bg-green-300 py-10 text-center text-orange-950">
+        <div className="bg-green-300 py-10 text-center text-orange-950 font-semibold text-lg px-2 md:text-2xl">
             {totalItens === 0 && (
-                <p className="text-2xl font-semibold">🚀 Start adding some items to your packing list</p>
+                <p>🚀 Start adding some items to your packing list</p>
             )}
 
             {totalItens > 0 && totalItens !== itemsPacked && (
-                <p className="text-2xl font-semibold">💼 You have {totalItens} item(s) on your list, and you already packed {itemsPacked} ({percentagePacked}%)</p>
+                <p>💼 You have {totalItens} item(s) on your list, and you already packed {itemsPacked} ({percentagePacked}%)</p>
             )}
 
             {totalItens > 0 && totalItens === itemsPacked && (
-                <p className="text-2xl font-semibold">🚀 Everything packed and ready to go!</p>
+                <p>🚀 Everything packed and ready to go!</p>
             )}
         </div>
     )

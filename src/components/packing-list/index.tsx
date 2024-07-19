@@ -1,4 +1,4 @@
-import { MouseEvent } from "react"
+import { ChangeEvent, MouseEvent } from "react"
 import { Input } from "../input"
 import { Item } from "./components/item"
 
@@ -12,14 +12,34 @@ interface PackingListProps {
     items: Item[]
     removeItemFromList: (event: MouseEvent<HTMLButtonElement>) => void
     changePackedStatus: (event: React.ChangeEvent<HTMLInputElement>) => void
+    changeOrderList: (event: ChangeEvent<HTMLSelectElement>) => void
     openConfirmClearModal: () => void
+    orderItems: string
 }
 
-export function PackingList({ items, removeItemFromList, changePackedStatus, openConfirmClearModal }: PackingListProps) {
+export function PackingList({ items, removeItemFromList, changePackedStatus, openConfirmClearModal, changeOrderList, orderItems }: PackingListProps) {
     function checkBeforeModalOpen() {
         items.length == 0
         ? null
         : openConfirmClearModal()
+    }
+
+    function orderDisplayedItems(itemsArray: Item[]): Item[] {
+        if (orderItems === "description") {
+            return itemsArray.slice().sort((a, b) => {
+                if (a.name < b.name) return -1;
+                if (a.name > b.name) return 1;
+                return 0;
+            });
+        }
+
+        if (orderItems === "status") {
+            return itemsArray.slice().sort((a, b) => {
+                return a.packed === b.packed ? 0 : a.packed ? 1 : -1;
+            });
+        }
+
+        return itemsArray;
     }
 
     return (
@@ -28,8 +48,8 @@ export function PackingList({ items, removeItemFromList, changePackedStatus, ope
                 {items.length == 0 && (
                     <p>You don't have items in your list</p>
                 )}
-                
-                {items.map(({ qty, name, packed }) => {
+
+                {orderDisplayedItems(items).map(({ qty, name, packed }) => {
                     return (
                         <Item qty={qty} name={name} packed={packed} key={name} removeItemFromList={removeItemFromList} changePackedStatus={changePackedStatus} />
                     )
@@ -42,10 +62,11 @@ export function PackingList({ items, removeItemFromList, changePackedStatus, ope
                     id="order"
                     name="order"
                     options={[
-                        {value: "order", text: "SORT BY INPUT ORDER"},
+                        {value: "default", text: "SORT BY INPUT ORDER"},
                         {value: "description", text: "SORT BY DESCRIPTION"},
                         {value: "status", text: "SORT BY PACKED STATUS"},
                     ]}
+                    changeOrderList={changeOrderList}
                 />
                 <button type="button" className="outline-none h-11 py-2 px-4 rounded-full bg-orange-200" onClick={checkBeforeModalOpen}>CLEAR LIST</button>
             </div>

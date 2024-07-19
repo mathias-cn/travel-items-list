@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react"
+
 interface Option {
     value: string
     text: string
@@ -9,12 +11,13 @@ interface InputProps {
     id: string
     placeholder?: string
     options?: Option[]
+    changeOrderList?: (event: ChangeEvent<HTMLSelectElement>) => void
 }
 
-export function Input({ type, name, id, placeholder, options }: InputProps) {
+export function Input({ type, name, id, placeholder, options, changeOrderList }: InputProps) {
     if(type === "select") {
         return (
-            <select name={name} id={id} className="outline-none h-11 py-2 px-4 rounded-full bg-orange-200">
+            <select onChange={changeOrderList} name={name} id={id} className="outline-none h-11 py-2 px-4 rounded-full bg-orange-200">
                 {options?.map(({ value, text }) => {
                     return(
                         <option key={value} value={value}>{text}</option>

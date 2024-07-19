@@ -10,7 +10,7 @@ export function Form({ addItemToList }: FormProps) {
         <div className="py-10 flex flex-wrap items-center justify-center gap-4 bg-orange-500 text-orange-950 font-semibold">
             <p className="text-2xl">What do you need for your trip?</p>
 
-            <form className="flex gap-2" onSubmit={addItemToList}>
+            <form className="flex gap-2 px-2" onSubmit={addItemToList}>
                 <Input 
                     type="select"
                     name="quantity"
